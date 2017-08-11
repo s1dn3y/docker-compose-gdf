@@ -1,0 +1,49 @@
+version: '3'
+services:
+  jboss-eap70:
+    build: jboss-eap70 # utiliza a imagem customizada configurada em ./Dockerfile
+    environment:
+      - DEV=${DEV}
+    volumes:
+  #     O diretório '${HOME}/docker-volumes/jboss-eap64/deployments' deve ser criado no host antes
+  #     de subir o container, caso contrário ele será criado pertencendo ao root
+      - ${HOME}/docker-volumes/jboss-eap70/deployments:/deployments
+    hostname:
+      jboss-eap64
+    links:
+      - mysql57
+    networks:
+        dockernet:
+          ipv4_address: 192.168.0.2
+  jboss-eap64:
+    build: jboss-eap64 # utiliza a imagem customizada configurada em ./Dockerfile
+    environment:
+      - DEV=${DEV}
+    volumes:
+  #     O diretório '${HOME}/docker-volumes/jboss-eap64/deployments' deve ser criado no host antes
+  #     de subir o container, caso contrário ele será criado pertencendo ao root
+      - ${HOME}/docker-volumes/jboss-eap64/deployments:/deployments
+    hostname:
+      jboss-eap70
+    links:
+      - mysql57
+    networks:
+        dockernet:
+          ipv4_address: 192.168.0.3
+  mysql57:
+    image: mysql:5.7
+    volumes:
+      - ${HOME}/docker-volumes/mysql57:/var/lib/mysql
+    hostname:
+      mysql-container # utilizar a url 'jdbc:mysql://mysql-container/<database>?autoReconnect=true' na aplicação
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    networks:
+        dockernet:
+          ipv4_address: 192.168.0.4
+networks:
+  dockernet:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 192.168.0.0/24
