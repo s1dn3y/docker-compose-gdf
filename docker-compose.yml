@@ -5,9 +5,9 @@ services:
     environment:
       - DEV=${DEV}
     volumes:
-  #     O diretório '${HOME}/docker-volumes/jboss-eap64/deployments' deve ser criado no host antes
+  #     O diretório '${HOME}/docker/volumes/jboss-eap64/deployments' deve ser criado no host antes
   #     de subir o container, caso contrário ele será criado pertencendo ao root
-      - ${HOME}/docker-volumes/jboss-eap70/deployments:/deployments
+      - ${HOME}/docker/volumes/jboss-eap70/deployments:/deployments
     hostname:
       jboss-eap64
     links:
@@ -20,9 +20,9 @@ services:
     environment:
       - DEV=${DEV}
     volumes:
-  #     O diretório '${HOME}/docker-volumes/jboss-eap64/deployments' deve ser criado no host antes
+  #     O diretório '${HOME}/docker/volumes/jboss-eap64/deployments' deve ser criado no host antes
   #     de subir o container, caso contrário ele será criado pertencendo ao root
-      - ${HOME}/docker-volumes/jboss-eap64/deployments:/deployments
+      - ${HOME}/docker/volumes/jboss-eap64/deployments:/deployments
     hostname:
       jboss-eap70
     links:
@@ -33,7 +33,7 @@ services:
   mysql57:
     image: mysql:5.7
     volumes:
-      - ${HOME}/docker-volumes/mysql57:/var/lib/mysql
+      - ${HOME}/docker/volumes/mysql57:/var/lib/mysql
     hostname:
       mysql-container # utilizar a url 'jdbc:mysql://mysql-container/<database>?autoReconnect=true' na aplicação
     environment:
