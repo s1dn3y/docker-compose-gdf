@@ -1,0 +1,6 @@
+/subsystem=datasources/jdbc-driver=mysql:add(driver-module-name=com.mysql,driver-name=mysql,driver-xa-datasource-class-name=com.mysql.jdbc.jdbc2.optional.MysqlXADataSource)
+/subsystem=datasources/data-source=gdfabricasDS:add(jndi-name="java:jboss/datasources/gdfabricasDS",connection-url="jdbc:mysql://db:3306/gdf?autoReconnect=true",driver-name=mysql,user-name=root,password=123456,valid-connection-checker-class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker",stale-connection-checker-class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLStaleConnectionChecker",exception-sorter-class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter")
+/subsystem=datasources/jdbc-driver=mysql:read-resource
+/subsystem=datasources/data-source=gdfabricasDS:enable
+/subsystem=datasources/data-source=gdfabricasDS:test-connection-in-pool
+

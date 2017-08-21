@@ -1,0 +1,39 @@
+web:
+  container_name: jboss-eap64
+  build: jboss-eap64 # utiliza a imagem customizada configurada em ./Dockerfile
+  environment:
+    - DEV=true # se usado para construir imagem para prod, melhor usar 'DEV=${DEV}'
+  ports:
+    - "8080:8080"
+    - "8787:8787"
+    - "9990:9990"
+  volumes:
+#     O diretório '${HOME}/docker/volumes/jboss-eap64/deployments' deve ser criado no host antes
+#     de subir o container, caso contrário ele será criado pertencendo ao root
+    - ${HOME}/docker/volumes/jboss-eap64/deployments:/deployments
+  links:
+    - api
+api:
+  container_name: jboss-eap70
+  build: jboss-eap70 # utiliza a imagem customizada configurada em ./Dockerfile
+  environment:
+    - DEV=${DEV}
+  ports:
+    - "18080:8080"
+    - "18787:8787"
+    - "19990:9990"
+  volumes:
+#     O diretório '${HOME}/docker/volumes/jboss-eap64/deployments' deve ser criado no host antes
+#     de subir o container, caso contrário ele será criado pertencendo ao root
+    - ${HOME}/docker/volumes/jboss-eap70/deployments:/deployments
+  links:
+    - db # utilizar a url 'jdbc:mysql://db/gdf?autoReconnect=true' na aplicação
+db:
+  container_name: mysql57
+  image: mysql:5.7
+  ports:
+    - "3306:3306"
+  volumes:
+    - ${HOME}/docker/volumes/mysql57:/var/lib/mysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=123456
