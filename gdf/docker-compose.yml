@@ -17,7 +17,7 @@ api:
   container_name: jboss-eap70
   build: jboss-eap70 # utiliza a imagem customizada configurada em ./Dockerfile
   environment:
-    - DEV=${DEV}
+    - DEV=true # se usado para construir imagem para prod, melhor usar 'DEV=${DEV}'
   ports:
     - "18080:8080"
     - "18787:8787"
