@@ -17,6 +17,13 @@ EXPOSE 8080 8443 8778 8787 9990
 VOLUME /deployments
 
 COPY files/pre-run.sh /opt/eap/bin/
+COPY files/keytool-trust.sh /opt/eap/bin/
+
+USER root
+RUN chmod 755 /opt/eap/bin/keytool-trust.sh
+
+USER root
+RUN /opt/eap/bin/keytool-trust.sh git.apps.rio.gov.br
 
 USER root
 RUN chmod 755 /opt/eap/bin/pre-run.sh \
