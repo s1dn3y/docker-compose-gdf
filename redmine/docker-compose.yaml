@@ -7,10 +7,11 @@ services:
     container_name: redmine
     restart: always
     ports:
-      - 3000:3000
+      - 80:3000
+    volumes:
+      - ${HOME}/docker/volumes/redmine/plugins:/usr/src/redmine/plugins
     environment:
       - REDMINE_DB_MYSQL=db
-##      - REDMINE_DB_PORT=13306
       - REDMINE_DB_PASSWORD=123456
     links:
       - db
@@ -20,7 +21,7 @@ services:
     container_name: redmine_db
     restart: always
     ports:
-      - 3306:3306
+      - 13306:3306
     volumes:
       - ${HOME}/docker/volumes/redmine_db:/var/lib/mysql
     environment:
