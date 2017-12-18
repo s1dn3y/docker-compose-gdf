@@ -1,8 +1,12 @@
 web:
   container_name: jboss-eap64
   build: jboss-eap64 # utiliza a imagem customizada configurada em ./Dockerfile
+  restart: always
   environment:
     - DEV=true # se usado para construir imagem para prod, melhor usar 'DEV=${DEV}'
+    - AMBIENTE=DESENVOLVIMENTO
+    - API_URL=http://localhost:18080/gdf/api/v1/
+    - CHAVEACESSO_CERBERUS = XXX
   ports:
     - "8080:8080"
     - "8787:8787"
@@ -16,8 +20,12 @@ web:
 api:
   container_name: jboss-eap70
   build: jboss-eap70 # utiliza a imagem customizada configurada em ./Dockerfile
+  restart: always
   environment:
     - DEV=true # se usado para construir imagem para prod, melhor usar 'DEV=${DEV}'
+    - AMBIENTE=LOCAL
+    - CHAVEACESSO_CERBERUS=XXX
+    - IDENTIFICADOR_CERBERUS=3170
   ports:
     - "18080:8080"
     - "18787:8787"
