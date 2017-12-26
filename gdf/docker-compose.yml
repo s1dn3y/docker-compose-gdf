@@ -5,7 +5,7 @@ web:
   environment:
     - DEV=true # se usado para construir imagem para prod, melhor usar 'DEV=${DEV}'
     - AMBIENTE=DESENVOLVIMENTO
-    - API_URL=http://localhost:18080/gdf/api/v1/
+    - API_URL=http://api:8080/gdf/api/v1/
     - CHAVEACESSO_CERBERUS=3e5c0de8-d6f4-44c3-8eba-a4013f7782e8
   ports:
     - "8080:8080"
