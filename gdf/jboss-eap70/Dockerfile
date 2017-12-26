@@ -23,7 +23,7 @@ USER root
 RUN chmod 755 /opt/eap/bin/keytool-trust.sh
 
 USER root
-RUN /opt/eap/bin/keytool-trust.sh git.apps.rio.gov.br
+RUN if [ ! -z "$RUN_KEYTOOL_TRUST" ]; then source /opt/eap/bin/keytool-trust.sh git.apps.rio.gov.br; else echo Skipping /opt/eap/bin/keytool-trust.sh; fi
 
 USER root
 RUN chmod 755 /opt/eap/bin/pre-run.sh \
